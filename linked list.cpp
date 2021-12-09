@@ -52,10 +52,11 @@ public:
 
         else{
             Node *newNode= new Node;
+            newNode->item=item;
             if(pos==0)  insertFirst(item);
             else if(pos==length)    insertLast(item);
             else{
-                Node *cur=new Node;
+                Node *cur=first;
                 for(int i=1 ;i<pos;i++)
                 {
                    cur=cur->next;
@@ -78,10 +79,9 @@ public:
 int main(){
 fast();
   linkedList l;
-  l.insertFirst(10);
+  l.insertAtPos(0,10);
   l.insertFirst(20);
   l.insertLast(30);
   l.print();
 return 0;
 }
-
