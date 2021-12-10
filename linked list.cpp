@@ -163,18 +163,103 @@ public:
         }
         return -1;
     }
+    int listSize(){
+        return length;
+    }
+    void removeAt(int pos){
+        if(pos<0||pos>length)
+            cout << "out of range \n";
+        else {
+                Node *cur,*prev;
+                if(pos==0)
+                {
+                    cur=first;
+                    first=first->next;
+                    delete cur;
+                    length--;
+                    if(length==0)
+                        last = NULL;
+                }
+                else{
+                    cur=first->next;
+                    prev=first;
+                    for(int i=1;i<pos;i++){
+                        prev=cur;
+                        cur=cur->next;
+                    }
+                    prev->next=cur->next;
+                    if(last==cur)
+                        last=prev;
+                    delete cur;
+                    length--;
+                }
+            }
+
+        }
+    void clearList(){
+        Node *current;
+        while(first!=NULL){
+            current=first;
+            first=first->next;
+            delete current;
+        }
+        last=NULL;
+        length=0;
+    }
+    void inserOrdered(int item)
+    {
+        Node *newNode= new Node;
+        newNode->item=item;
+        if(first==NULL){
+            first=last=newNode;
+            newNode->next=NULL;
+            length++;
+        }
+        else if(first->item>=item){
+            newNode->next=first;
+            first=newNode;
+            length++;
+        }
+        else{
+            Node *current,*previous;
+            current=first->next;
+            previous=first;
+            while(current!=NULL){
+                if(current->item>=item) break;
+                previous=current;
+                current=current->next;
+            }
+            if(current==NULL){
+                last->next=newNode;
+                newNode->next=NULL;
+                last=newNode;
+                length++;
+            }
+            else{
+                previous->next=newNode;
+                newNode->next=current;
+                length++;
+            }
+
+        }
+
+    }
+    ~linkedList()
+    {
+        clearList();
+    }
+
+
 };
 int main(){
 fast();
   linkedList l;
-  l.insertAtPos(0,10);
-  l.insertFirst(0);
-  l.insertLast(30);
-  l.insertLast(50);
-  l.insertLast(60);
-  l.popBack();
-  l.popFront();
-  l.Remove(50);
+  l.inserOrdered(10);
+  l.inserOrdered(50);
+  l.inserOrdered(60);
+  l.inserOrdered(0);
   l.print();
+  l.~linkedList();
+
 return 0;
 }
