@@ -7,15 +7,15 @@ void fast(){
 	cout.tie(NULL);
 	cin.tie(NULL);
 }
-class linkedList{
-    struct Node{
+struct Node{
         int item;
         Node *next;
 };
+class linkedList{
     Node *first,*last;
     int length;
 public:
-    linkedList():first(NULL),last(NULL){}
+    linkedList():first(NULL),last(NULL),length(0){}
     bool isEmpty(){
         return length==0;
     }
@@ -68,6 +68,71 @@ public:
         }
 
     }
+    void popFront(){
+        if(length ==0)  cout <<"empty list can`t remove\n" ;
+        else if(length==1){
+            delete first;
+            first=last=NULL;
+            length--;
+        }
+        else{
+        Node *cur= first;
+        first=first->next;
+        delete cur;
+        length--;
+        }
+
+    }
+    void popBack(){
+        if(length ==0)  cout <<"empty list can`t remove\n" ;
+        else if(length==1){
+            delete first;
+            first=last=NULL;
+            length--;
+        }
+        else
+        {
+        Node *cur=first->next;
+        Node *prev=first;
+        while(cur!=last){
+            prev=cur;
+            cur=cur->next;
+            }
+        delete cur;
+        prev->next=NULL;
+        last=prev;
+        length--;
+        }
+    }
+    void Remove(int element){
+        if(length ==0)  {cout <<"empty list can`t remove\n";}
+        Node *cur,*prev;
+        if(first->item==element){
+            cur=first;
+            first=first->next;
+            delete cur;
+            length--;
+            if(length==0)   last=NULL;
+        }
+        else{
+            cur=first->next;
+            prev=first;
+            while(cur!=NULL){
+                if(cur->item== element) break;
+                prev=cur;
+                cur=cur->next;
+            }
+            if(cur==NULL)   cout << "The item is not there\n";
+            else {
+                prev->next=cur->next;
+                if(last==cur)    {last=prev;}
+                delete cur;
+                length--;
+            }
+        }
+
+    }
+
     void print(){
         Node *cur=first;
         while(cur!=NULL){
@@ -75,13 +140,41 @@ public:
             cur=cur->next;
         }
     }
+    void Reverse(){
+        Node *prev,*cur,*next;
+        prev=NULL;
+        cur=first;
+        next=cur->next;
+        while(next!=NULL){
+            next=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=next;
+        }
+        first=prev;
+    }
+    int Search(int item){
+        Node *cur=first;
+        int pos=0;
+        while(cur!=NULL){
+            if(cur->item==item) return pos;
+            cur=cur->next;
+            pos++;
+        }
+        return -1;
+    }
 };
 int main(){
 fast();
   linkedList l;
   l.insertAtPos(0,10);
-  l.insertFirst(20);
+  l.insertFirst(0);
   l.insertLast(30);
+  l.insertLast(50);
+  l.insertLast(60);
+  l.popBack();
+  l.popFront();
+  l.Remove(50);
   l.print();
 return 0;
 }
