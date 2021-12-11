@@ -11,7 +11,7 @@ class Stack{
     node *top,*cur;
 
 public:
-     Stack (): top(NULL){}
+     Stack (): top(NULL),cur(NULL){}
     void push(t newitem){
         node*newitemptr=new node;
         if (newitemptr == NULL)
