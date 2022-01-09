@@ -248,8 +248,34 @@ public:
     {
         clearList();
     }
-
-
+    void deletePos(int pos){
+        if(pos < 0 || pos >length)
+            cout << " list is empty";
+        else{
+            Node *current,*tail;
+            if(pos==0){
+                current=first;
+                first=first->next;
+                delete current;
+                length--;
+                if (length == 0)
+                    last = NULL;
+            }
+            else{
+                current= first->next;
+                tail=first;
+                for(int i=1;i<pos;i++){
+                    tail=current;
+                    current=current->next;
+                }
+                tail->next=current->next;
+                if(current==last)
+                    last=tail;
+                delete current;
+                length--;
+            }
+        }
+    }
 };
 int main(){
 fast();
@@ -258,8 +284,9 @@ fast();
   l.inserOrdered(50);
   l.inserOrdered(60);
   l.inserOrdered(0);
+  l.deletePos(2);
   l.print();
-  l.~linkedList();
+
 
 return 0;
 }
