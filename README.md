@@ -1,2 +1,2 @@
 # DATA-STRUCTURE
-this repo contain code for several data-structure concepts
+this repo contain code for several Data-structure & ALgorithm concepts
